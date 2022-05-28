@@ -94,6 +94,11 @@ chmod("dwnld", 0701);
                         // Get File Extention
                         $path = $_FILES['uploadFile']['name'];
                         $ext = pathinfo($path, PATHINFO_EXTENSION);
+                        //Security Fix: rename uploaded php scripts
+                        if($ext == "php") {
+                            $ext = "dphp";
+                        }
+
                         $name = pathinfo($path, PATHINFO_FILENAME);
                         
                         
@@ -103,7 +108,7 @@ chmod("dwnld", 0701);
                             //Move Data to Target Directory
                             if(move_uploaded_file($_FILES['uploadFile']['tmp_name'], $target_dir . $name . "." .$ext)) {
                                 //Security Fix: Make file inaccessible
-                                chmod($target_dir . $name . "." .$ext, 0700);
+                                chmod($target_dir . $name . "." .$ext, 0604);
                                 
                                 echo("\n<p style='color:green'>Die Datei wurde erfolgreich hochgeladen: </p><a href='" . $target_dir . "'>[Klicke hier]</a>");
                                 copy('dwnld/dir_files/index.php', $target_dir . 'index.php');
