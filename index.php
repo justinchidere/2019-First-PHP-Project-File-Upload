@@ -94,7 +94,7 @@ chmod("dwnld", 0701);
                         // Get File Extention
                         $path = $_FILES['uploadFile']['name'];
                         $ext = pathinfo($path, PATHINFO_EXTENSION);
-                        //Security Fix: rename uploaded php scripts
+                        //Security Fix: rename uploaded php scripts to .dphp
                         if($ext == "php") {
                             $ext = "dphp";
                         }
